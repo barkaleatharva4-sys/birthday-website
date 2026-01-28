@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Welcome</title>
+<style>
+body{
+    height:100vh;
+    margin:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    background:#fff0f5;
+    font-family:sans-serif;
+}
+h1{color:#e91e63}
+
+.fancy-btn{
+    margin-top:30px;
+    padding:15px 35px;
+    border:none;
+    border-radius:30px;
+    background:linear-gradient(135deg,#ff4081,#ff80ab);
+    color:white;
+    font-size:18px;
+    box-shadow:0 0 20px #ff4081;
+    animation:glow 1.5s infinite alternate;
+}
+@keyframes glow{
+    from{box-shadow:0 0 10px #ff80ab}
+    to{box-shadow:0 0 25px #ff4081}
+}
+</style>
+</head>
+<body>
+
+<h1>Happy Birthday Tanu 💖</h1>
+<button class="fancy-btn" onclick="go()">Enter Surprise ✨</button>
+
+<audio autoplay loop>
+<source src="music.mp3">
+</audio>
+
+<script>
+function go(){
+    window.location="memories.html";
+}
+</script>
+
+</body>
+</html>

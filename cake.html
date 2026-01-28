@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Cake</title>
+<style>
+body{
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    background:#fff0f5;
+}
+#cake{font-size:120px}
+#pieces{display:none;font-size:90px}
+</style>
+</head>
+<body>
+
+<h2>🎂 Cut the Cake</h2>
+<div id="cake" onclick="cut()">🎂</div>
+<div id="pieces">🍰 🍰</div>
+
+<script>
+function cut(){
+    cake.style.display="none";
+    pieces.style.display="block";
+    setTimeout(()=>window.location="final.html",1500);
+}
+</script>
+
+</body>
+</html>
