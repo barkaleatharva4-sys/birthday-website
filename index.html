@@ -20,11 +20,6 @@ body{
     text-align:center;
 }
 
-/* TITLE */
-h2{
-    margin-bottom:10px;
-}
-
 /* TIMER */
 #timer{
     font-size:36px;
@@ -32,7 +27,7 @@ h2{
     animation:glow 1.5s infinite alternate;
 }
 
-/* GLOW EFFECT */
+/* GLOW */
 @keyframes glow{
     from{ text-shadow:0 0 10px #fff; }
     to{ text-shadow:0 0 25px #ffe4ec; }
@@ -68,6 +63,26 @@ h2{
     to{opacity:1; transform:scale(1)}
 }
 
+/* BUTTON */
+#unlockBtn{
+    display:none;
+    margin-top:25px;
+    padding:14px 36px;
+    border:none;
+    border-radius:30px;
+    background:linear-gradient(135deg,#ff4081,#ff80ab);
+    color:white;
+    font-size:18px;
+    box-shadow:0 0 20px #ff4081;
+    cursor:pointer;
+    animation:btnGlow 1.5s infinite alternate;
+}
+
+@keyframes btnGlow{
+    from{box-shadow:0 0 10px #ff80ab}
+    to{box-shadow:0 0 25px #ff4081}
+}
+
 .note{
     margin-top:15px;
     font-size:14px;
@@ -80,25 +95,27 @@ h2{
 
 <h2>🎂 Countdown to Your Day 🎂</h2>
 <div id="timer">Loading...</div>
-<div class="note">Something magical is waiting 💝</div>
+<div class="note" id="lockMsg">⏳ Too early 😜 Come back later</div>
 
-<!-- PHOTO REVEAL -->
+<!-- PHOTO -->
 <div id="photoReveal">
     <h2>💖 It Begins 💖</h2>
     <img src="photo1.jpg" alt="Special Photo">
 </div>
 
-<!-- MUSIC (PLAYS AFTER TIME) -->
+<!-- UNLOCK BUTTON -->
+<button id="unlockBtn" onclick="goNext()">Enter Surprise ✨</button>
+
+<!-- MUSIC -->
 <audio id="music" loop>
     <source src="music.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-// 🎯 SET TARGET DATE & TIME
-// CHANGE ONLY DATE IF NEEDED
-const targetDate = new Date("January 28, 2026 12:19:00").getTime();
+// 🎯 TARGET DATE: 19 FEB 12:00 AM
+const targetDate = new Date("February 19, 2026 00:00:00").getTime();
 
-// ❤️ HEART GENERATOR
+// ❤️ HEARTS
 function createHeart(){
     const h = document.createElement("div");
     h.className="heart";
@@ -109,9 +126,9 @@ function createHeart(){
     document.body.appendChild(h);
     setTimeout(()=>h.remove(),6000);
 }
-setInterval(createHeart,800);
+setInterval(createHeart,900);
 
-// ⏳ COUNTDOWN LOGIC
+// ⏳ COUNTDOWN
 const timerInterval = setInterval(()=>{
     const now = new Date().getTime();
     const diff = targetDate - now;
@@ -119,31 +136,34 @@ const timerInterval = setInterval(()=>{
     if(diff <= 0){
         clearInterval(timerInterval);
 
+        // Unlock page
         document.getElementById("timer").style.display="none";
-        document.querySelector(".note").style.display="none";
+        document.getElementById("lockMsg").style.display="none";
 
-        // SHOW PHOTO
+        // Show photo
         document.getElementById("photoReveal").style.display="block";
 
-        // PLAY MUSIC
+        // Show button
+        document.getElementById("unlockBtn").style.display="inline-block";
+
+        // Play music
         document.getElementById("music").play();
-
-        // REDIRECT AFTER ANIMATION
-        setTimeout(()=>{
-            window.location="welcome.html";
-        },4000);
-
         return;
     }
 
-    const days = Math.floor(diff / (1000*60*60*24));
-    const hours = Math.floor((diff / (1000*60*60)) % 24);
-    const minutes = Math.floor((diff / (1000*60)) % 60);
-    const seconds = Math.floor((diff / 1000) % 60);
+    const d = Math.floor(diff / (1000*60*60*24));
+    const h = Math.floor((diff / (1000*60*60)) % 24);
+    const m = Math.floor((diff / (1000*60)) % 60);
+    const s = Math.floor((diff / 1000) % 60);
 
     document.getElementById("timer").innerHTML =
-        `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        `${d}d ${h}h ${m}m ${s}s`;
 },1000);
+
+// NEXT PAGE
+function goNext(){
+    window.location = "welcome.html";
+}
 </script>
 
 </body>
