@@ -14,30 +14,62 @@ body{
     justify-content:center;
     align-items:center;
     background:linear-gradient(135deg,#ff758c,#ff7eb3);
-    color:white;
     font-family:'Segoe UI',sans-serif;
+    color:white;
+    overflow:hidden;
     text-align:center;
 }
 
-h1{
-    font-size:32px;
-    margin-bottom:20px;
+/* TITLE */
+h2{
+    margin-bottom:10px;
 }
 
+/* TIMER */
 #timer{
-    font-size:40px;
+    font-size:36px;
     font-weight:bold;
-    letter-spacing:2px;
-    animation:pulse 1s infinite alternate;
+    animation:glow 1.5s infinite alternate;
 }
 
-@keyframes pulse{
-    from{transform:scale(1)}
-    to{transform:scale(1.08)}
+/* GLOW EFFECT */
+@keyframes glow{
+    from{ text-shadow:0 0 10px #fff; }
+    to{ text-shadow:0 0 25px #ffe4ec; }
+}
+
+/* HEARTS */
+.heart{
+    position:absolute;
+    bottom:-40px;
+    animation:float 6s linear infinite;
+    opacity:0.8;
+}
+
+@keyframes float{
+    0%{ transform:translateY(0); opacity:1; }
+    100%{ transform:translateY(-120vh); opacity:0; }
+}
+
+/* PHOTO REVEAL */
+#photoReveal{
+    display:none;
+    animation:fadeIn 2s ease-in-out forwards;
+}
+
+#photoReveal img{
+    width:220px;
+    border-radius:20px;
+    box-shadow:0 0 25px rgba(255,255,255,0.7);
+}
+
+@keyframes fadeIn{
+    from{opacity:0; transform:scale(0.7)}
+    to{opacity:1; transform:scale(1)}
 }
 
 .note{
-    margin-top:20px;
+    margin-top:15px;
     font-size:14px;
     opacity:0.9;
 }
@@ -46,31 +78,72 @@ h1{
 
 <body>
 
-<h1>🎂 Birthday Countdown 🎂</h1>
+<h2>🎂 Countdown to Your Day 🎂</h2>
 <div id="timer">Loading...</div>
-<div class="note">Something special is waiting 💝</div>
+<div class="note">Something magical is waiting 💝</div>
+
+<!-- PHOTO REVEAL -->
+<div id="photoReveal">
+    <h2>💖 It Begins 💖</h2>
+    <img src="photo1.jpg" alt="Special Photo">
+</div>
+
+<!-- MUSIC (PLAYS AFTER TIME) -->
+<audio id="music" loop>
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
 
 <script>
-// 🎯 SET TARGET DATE: 19 FEB, 12:00 AM
-const targetDate = new Date("February 19, 2026 00:00:00").getTime();
+// 🎯 SET TARGET DATE & TIME
+// CHANGE ONLY DATE IF NEEDED
+const targetDate = new Date("January 28, 2026 12:19:00").getTime();
 
-setInterval(() => {
+// ❤️ HEART GENERATOR
+function createHeart(){
+    const h = document.createElement("div");
+    h.className="heart";
+    h.innerHTML="❤️";
+    h.style.left = Math.random()*100 + "%";
+    h.style.fontSize = (16 + Math.random()*20) + "px";
+    h.style.animationDuration = (4 + Math.random()*4) + "s";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),6000);
+}
+setInterval(createHeart,800);
+
+// ⏳ COUNTDOWN LOGIC
+const timerInterval = setInterval(()=>{
     const now = new Date().getTime();
     const diff = targetDate - now;
 
     if(diff <= 0){
-        window.location = "welcome.html";
+        clearInterval(timerInterval);
+
+        document.getElementById("timer").style.display="none";
+        document.querySelector(".note").style.display="none";
+
+        // SHOW PHOTO
+        document.getElementById("photoReveal").style.display="block";
+
+        // PLAY MUSIC
+        document.getElementById("music").play();
+
+        // REDIRECT AFTER ANIMATION
+        setTimeout(()=>{
+            window.location="welcome.html";
+        },4000);
+
         return;
     }
 
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const days = Math.floor(diff / (1000*60*60*24));
+    const hours = Math.floor((diff / (1000*60*60)) % 24);
+    const minutes = Math.floor((diff / (1000*60)) % 60);
     const seconds = Math.floor((diff / 1000) % 60);
 
     document.getElementById("timer").innerHTML =
         `${days}d ${hours}h ${minutes}m ${seconds}s`;
-}, 1000);
+},1000);
 </script>
 
 </body>
