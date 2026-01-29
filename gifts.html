@@ -1,52 +1,94 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Gifts</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gifts 🎁</title>
+
 <style>
 body{
     margin:0;
-    font-family:sans-serif;
+    background:linear-gradient(135deg,#ff7eb3,#ffb3d9);
+    font-family:'Segoe UI',sans-serif;
     text-align:center;
-    background:#fff0f5;
+    color:white;
 }
-.gift{
-    font-size:80px;
-    margin-top:60px;
-}
-.photos{
+.gifts{
     display:grid;
     grid-template-columns:repeat(3,1fr);
-    gap:10px;
+    gap:18px;
     padding:20px;
 }
-.photos img{
-    width:100%;
-    border-radius:10px;
+.gift{
+    height:110px;
+    background:#ff2f92;
+    border-radius:20px;
+    font-size:44px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+}
+button{
+    margin-top:25px;
+    padding:15px 55px;
+    border:none;
+    border-radius:50px;
+    background:#aaa;
+    color:white;
+}
+button.active{
+    background:#ff2f92;
+}
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.8);
+    justify-content:center;
+    align-items:center;
+}
+.modal img{
+    width:90%;
+    max-width:350px;
+    border-radius:20px;
 }
 </style>
 </head>
+
 <body>
+<h2>🎁 Open All Gifts 🎁</h2>
 
-<h2>🎁 Open Gift</h2>
-<div class="gift" onclick="openGift()">🎁</div>
-
-<div class="photos" id="p" style="display:none">
-<img src="gift1.jpg">
-<img src="gift2.jpg">
-<img src="gift3.jpg">
+<div class="gifts">
+    <div class="gift" onclick="openGift(this,'gift1.jpg')">🎁</div>
+    <div class="gift" onclick="openGift(this,'gift2.jpg')">🎁</div>
+    <div class="gift" onclick="openGift(this,'gift3.jpg')">🎁</div>
 </div>
 
-<button class="fancy-btn" onclick="next()">Next 🎂</button>
+<button id="nextBtn" onclick="goNext()">Next 💖</button>
+
+<div class="modal" id="modal" onclick="modal.style.display='none'">
+    <img id="giftImg">
+</div>
 
 <script>
-function openGift(){
-    document.getElementById("p").style.display="grid";
+let opened = 0;
+function openGift(el,img){
+    modal.style.display="flex";
+    giftImg.src = img;
+    if(!el.classList.contains("done")){
+        el.classList.add("done");
+        opened++;
+    }
+    if(opened === 3){
+        nextBtn.classList.add("active");
+    }
 }
-function next(){
-    window.location="cake.html";
+function goNext(){
+    if(opened === 3){
+        location.href="memories.html";
+    }
 }
 </script>
-
 </body>
 </html>

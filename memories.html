@@ -1,48 +1,60 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Memories</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Memories 💖</title>
+
 <style>
 body{
     margin:0;
-    font-family:sans-serif;
-    background:#fff0f5;
+    background:linear-gradient(135deg,#ff5fa2,#ff9bcf);
+    font-family:'Segoe UI',sans-serif;
     text-align:center;
+    color:white;
 }
 .gallery{
     display:grid;
     grid-template-columns:repeat(2,1fr);
-    gap:10px;
-    padding:20px;
+    gap:16px;
+    padding:16px;
 }
-.gallery img{
+.card{
+    background:white;
+    border-radius:18px;
+    padding:8px;
+}
+.card img{
     width:100%;
-    border-radius:15px;
+    height:180px;
+    object-fit:cover;
+    border-radius:14px;
 }
-.fancy-btn{margin:20px}
+button{
+    margin:25px;
+    padding:15px 55px;
+    border:none;
+    border-radius:50px;
+    background:#ff2f92;
+    color:white;
+}
 </style>
 </head>
-<body>
 
-<h2>📸 Our Memories</h2>
+<body>
+<h2>💖 Our Memories 💖</h2>
 
 <div class="gallery">
-<img src="photo1.jpg">
-<img src="photo2.jpg">
-<img src="photo3.jpg">
-<img src="photo4.jpg">
-<img src="photo5.jpg">
-<img src="photo6.jpg">
+    <div class="card"><img src="photo1.jpg"></div>
+    <div class="card"><img src="photo2.jpg"></div>
+    <div class="card"><img src="photo3.jpg"></div>
+    <div class="card"><img src="photo4.jpg"></div>
+    <div class="card"><img src="photo5.jpg"></div>
+    <div class="card"><img src="photo6.jpg"></div>
+    <div class="card"><img src="photo7.jpg"></div>
+    <div class="card"><img src="photo8.jpg"></div>
 </div>
 
-<button class="fancy-btn" onclick="next()">Next 🎁</button>
-
-<script>
-function next(){
-    window.location="gifts.html";
-}
-</script>
-
+<button onclick="location.href='final.html'">Finish 💖</button>
 </body>
 </html>

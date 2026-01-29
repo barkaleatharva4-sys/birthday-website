@@ -1,52 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Welcome</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome 💖</title>
+
 <style>
 body{
-    height:100vh;
     margin:0;
+    height:100vh;
     display:flex;
+    flex-direction:column;
     justify-content:center;
     align-items:center;
-    flex-direction:column;
-    background:#fff0f5;
-    font-family:sans-serif;
-}
-h1{color:#e91e63}
-
-.fancy-btn{
-    margin-top:30px;
-    padding:15px 35px;
-    border:none;
-    border-radius:30px;
-    background:linear-gradient(135deg,#ff4081,#ff80ab);
+    background:linear-gradient(135deg,#ff85b3,#ff5f9e);
+    font-family:'Segoe UI',sans-serif;
     color:white;
-    font-size:18px;
-    box-shadow:0 0 20px #ff4081;
-    animation:glow 1.5s infinite alternate;
+    text-align:center;
 }
-@keyframes glow{
-    from{box-shadow:0 0 10px #ff80ab}
-    to{box-shadow:0 0 25px #ff4081}
+button{
+    margin-top:30px;
+    padding:16px 50px;
+    border:none;
+    border-radius:50px;
+    font-size:18px;
+    background:#ff2f92;
+    color:white;
 }
 </style>
 </head>
+
 <body>
-
-<h1>Happy Birthday Tanu 💖</h1>
-<button class="fancy-btn" onclick="go()">Enter Surprise ✨</button>
-
-<audio autoplay loop>
-<source src="music.mp3">
-</audio>
-
-<script>
-function go(){
-    window.location="memories.html";
-}
-</script>
-
+<h1>Happy Birthday 💖</h1>
+<p>This journey is only for you ✨</p>
+<button onclick="location.href='cake.html'">Cut the Cake 🎂</button>
 </body>
 </html>

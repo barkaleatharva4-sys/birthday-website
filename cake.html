@@ -1,34 +1,48 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Cake</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cake 🎂</title>
+
 <style>
 body{
+    margin:0;
     height:100vh;
     display:flex;
     flex-direction:column;
     justify-content:center;
     align-items:center;
-    background:#fff0f5;
+    background:linear-gradient(135deg,#ff5f9e,#ff85b3);
+    font-family:'Segoe UI',sans-serif;
+    color:white;
 }
-#cake{font-size:120px}
-#pieces{display:none;font-size:90px}
+#cake{
+    font-size:120px;
+    cursor:pointer;
+}
+button{
+    display:none;
+    margin-top:25px;
+    padding:15px 50px;
+    border:none;
+    border-radius:50px;
+    background:#ff2f92;
+    color:white;
+}
 </style>
 </head>
-<body>
 
-<h2>🎂 Cut the Cake</h2>
+<body>
+<h2>Tap to cut the cake 🎂</h2>
 <div id="cake" onclick="cut()">🎂</div>
-<div id="pieces">🍰 🍰</div>
+<button id="next" onclick="location.href='gifts.html'">Open Gifts 🎁</button>
 
 <script>
 function cut(){
-    cake.style.display="none";
-    pieces.style.display="block";
-    setTimeout(()=>window.location="final.html",1500);
+    cake.innerHTML = "🍰 🍰";
+    next.style.display = "inline-block";
 }
 </script>
-
 </body>
 </html>

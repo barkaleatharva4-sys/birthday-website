@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Birthday Countdown 💖</title>
+<title>Countdown 💖</title>
 
 <style>
 body{
@@ -13,158 +13,50 @@ body{
     flex-direction:column;
     justify-content:center;
     align-items:center;
-    background:linear-gradient(135deg,#ff758c,#ff7eb3);
+    background:linear-gradient(135deg,#ff5f9e,#ff85b3);
     font-family:'Segoe UI',sans-serif;
     color:white;
-    overflow:hidden;
     text-align:center;
 }
-
-/* TIMER */
 #timer{
-    font-size:36px;
+    font-size:34px;
     font-weight:bold;
-    animation:glow 1.5s infinite alternate;
+    text-shadow:0 0 20px white;
 }
-
-/* GLOW */
-@keyframes glow{
-    from{ text-shadow:0 0 10px #fff; }
-    to{ text-shadow:0 0 25px #ffe4ec; }
-}
-
-/* HEARTS */
-.heart{
-    position:absolute;
-    bottom:-40px;
-    animation:float 6s linear infinite;
-    opacity:0.8;
-}
-
-@keyframes float{
-    0%{ transform:translateY(0); opacity:1; }
-    100%{ transform:translateY(-120vh); opacity:0; }
-}
-
-/* PHOTO REVEAL */
-#photoReveal{
-    display:none;
-    animation:fadeIn 2s ease-in-out forwards;
-}
-
-#photoReveal img{
-    width:220px;
-    border-radius:20px;
-    box-shadow:0 0 25px rgba(255,255,255,0.7);
-}
-
-@keyframes fadeIn{
-    from{opacity:0; transform:scale(0.7)}
-    to{opacity:1; transform:scale(1)}
-}
-
-/* BUTTON */
-#unlockBtn{
+button{
     display:none;
     margin-top:25px;
-    padding:14px 36px;
+    padding:16px 48px;
     border:none;
-    border-radius:30px;
-    background:linear-gradient(135deg,#ff4081,#ff80ab);
-    color:white;
+    border-radius:50px;
     font-size:18px;
-    box-shadow:0 0 20px #ff4081;
-    cursor:pointer;
-    animation:btnGlow 1.5s infinite alternate;
-}
-
-@keyframes btnGlow{
-    from{box-shadow:0 0 10px #ff80ab}
-    to{box-shadow:0 0 25px #ff4081}
-}
-
-.note{
-    margin-top:15px;
-    font-size:14px;
-    opacity:0.9;
+    color:white;
+    background:linear-gradient(135deg,#ff4b8b,#ff77b7,#ff4b8b);
 }
 </style>
 </head>
 
 <body>
-
-<h2>🎂 Countdown to Your Day 🎂</h2>
+<h2>Something special is coming 🎁</h2>
 <div id="timer">Loading...</div>
-<div class="note" id="lockMsg">⏳ Too early 😜 Come back later</div>
-
-<!-- PHOTO -->
-<div id="photoReveal">
-    <h2>💖 It Begins 💖</h2>
-    <img src="photo1.jpg" alt="Special Photo">
-</div>
-
-<!-- UNLOCK BUTTON -->
-<button id="unlockBtn" onclick="goNext()">Enter Surprise ✨</button>
-
-<!-- MUSIC -->
-<audio id="music" loop>
-    <source src="music.mp3" type="audio/mpeg">
-</audio>
+<button id="go" onclick="location.href='welcome.html'">Enter ✨</button>
 
 <script>
-// 🎯 TARGET DATE: 19 FEB 12:00 AM
-const targetDate = new Date("February 19, 2026 00:00:00").getTime();
-
-// ❤️ HEARTS
-function createHeart(){
-    const h = document.createElement("div");
-    h.className="heart";
-    h.innerHTML="❤️";
-    h.style.left = Math.random()*100 + "%";
-    h.style.fontSize = (16 + Math.random()*20) + "px";
-    h.style.animationDuration = (4 + Math.random()*4) + "s";
-    document.body.appendChild(h);
-    setTimeout(()=>h.remove(),6000);
-}
-setInterval(createHeart,900);
-
-// ⏳ COUNTDOWN
-const timerInterval = setInterval(()=>{
+const target = new Date("February 19, 2026 00:00:00").getTime();
+setInterval(()=>{
     const now = new Date().getTime();
-    const diff = targetDate - now;
-
+    const diff = target - now;
     if(diff <= 0){
-        clearInterval(timerInterval);
-
-        // Unlock page
-        document.getElementById("timer").style.display="none";
-        document.getElementById("lockMsg").style.display="none";
-
-        // Show photo
-        document.getElementById("photoReveal").style.display="block";
-
-        // Show button
-        document.getElementById("unlockBtn").style.display="inline-block";
-
-        // Play music
-        document.getElementById("music").play();
+        timer.innerHTML = "It’s time 💖";
+        go.style.display = "inline-block";
         return;
     }
-
-    const d = Math.floor(diff / (1000*60*60*24));
-    const h = Math.floor((diff / (1000*60*60)) % 24);
-    const m = Math.floor((diff / (1000*60)) % 60);
-    const s = Math.floor((diff / 1000) % 60);
-
-    document.getElementById("timer").innerHTML =
-        `${d}d ${h}h ${m}m ${s}s`;
+    const d=Math.floor(diff/(1000*60*60*24));
+    const h=Math.floor((diff/(1000*60*60))%24);
+    const m=Math.floor((diff/(1000*60))%60);
+    const s=Math.floor((diff/1000)%60);
+    timer.innerHTML = `${d}d ${h}h ${m}m ${s}s`;
 },1000);
-
-// NEXT PAGE
-function goNext(){
-    window.location = "welcome.html";
-}
 </script>
-
 </body>
 </html>
