@@ -1,197 +1,82 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gifts 💝</title>
+<title>Gifts 🎁</title>
 
 <style>
 body{
     margin:0;
     background:linear-gradient(135deg,#ff7eb3,#ffb3d9);
     font-family:'Segoe UI',sans-serif;
-    color:white;
-    text-align:center;
+    text-align:center;color:white;
 }
-
-h2{ margin:20px 10px; }
-
-/* AUDIO CARD */
-.audio-card{
-    margin:15px auto;
-    width:90%;
-    max-width:360px;
-    background:white;
-    color:black;
-    padding:15px;
-    border-radius:18px;
-    box-shadow:0 10px 22px rgba(0,0,0,0.25);
-}
-
-/* PHOTOS */
-.photos{
+.gifts{
     display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:15px;
-    padding:20px;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;padding:20px;
 }
-
-.photo{
-    background:white;
-    padding:6px;
-    border-radius:16px;
-    box-shadow:0 8px 18px rgba(0,0,0,0.25);
-}
-.photo img{
-    width:100%;
-    height:160px;
-    object-fit:cover;
-    border-radius:12px;
-    cursor:pointer;
-}
-.photo.done{ opacity:0.5; }
-
-/* MODAL */
-.modal{
-    display:none;
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,0.85);
-    justify-content:center;
-    align-items:center;
-}
-.modal img{
-    width:90%;
-    max-width:360px;
+.gift{
+    height:110px;
+    background:#ff4b8b;
     border-radius:20px;
-}
-
-/* NEXT BUTTON */
-button{
-    margin:20px 0 35px;
-    padding:15px 55px;
-    border:none;
-    border-radius:50px;
-    font-size:17px;
-    background:#aaa;
-    color:white;
-    cursor:not-allowed;
-}
-button.active{
-    background:linear-gradient(135deg,#ff2f92,#ff6fb1);
+    font-size:44px;
+    display:flex;align-items:center;justify-content:center;
     cursor:pointer;
 }
-
-#msg{
-    font-size:14px;
-    margin-bottom:25px;
+.gift.opened{opacity:0.5;pointer-events:none;}
+.modal{
+    display:none;position:fixed;inset:0;
+    background:black;justify-content:center;align-items:center;
 }
+.modal img{width:90%;max-width:360px;border-radius:20px;}
+button{
+    margin:20px;padding:15px 55px;
+    border:none;border-radius:50px;
+    font-size:17px;background:#aaa;color:white;
+}
+button.active{background:#ff4b8b;}
 </style>
 </head>
 
 <body>
 
-<h2>💝 Special Gifts For You 💝</h2>
+<h2>🎁 Open Gifts & Play Audio 🎙️</h2>
 
-<!-- BACKGROUND MUSIC -->
-<audio id="bgMusic" loop>
-    <source src="bg_music.mp3" type="audio/mpeg">
-</audio>
+<audio id="voice" src="gift_audio.mp3" controls></audio>
 
-<!-- VOICE MESSAGE -->
-<div class="audio-card">
-    🎙️ A message from my heart  
-    <audio id="voice" controls style="width:100%;margin-top:10px;">
-        <source src="gift_audio.mp3" type="audio/mpeg">
-    </audio>
+<div class="gifts">
+    <div class="gift" onclick="openGift(this,'gift1.jpg')">🎁</div>
+    <div class="gift" onclick="openGift(this,'gift2.jpg')">🎁</div>
+    <div class="gift" onclick="openGift(this,'gift3.jpg')">🎁</div>
 </div>
 
-<!-- PHOTOS (ONLY 3) -->
-<div class="photos">
-    <div class="photo" onclick="openPhoto(1,this)"><img src="gift1.jpg"></div>
-    <div class="photo" onclick="openPhoto(2,this)"><img src="gift2.jpg"></div>
-    <div class="photo" onclick="openPhoto(3,this)"><img src="gift3.jpg"></div>
-</div>
+<button id="next" onclick="go()">Next 💖</button>
 
-<button id="nextBtn" onclick="goNext()">Next 💖</button>
-<div id="msg">🔒 Listen to audio & open all photos</div>
-
-<!-- MODAL -->
-<div class="modal" id="modal" onclick="closeModal()">
-    <img id="modalImg">
+<div class="modal" id="m" onclick="m.style.display='none'">
+    <img id="img">
 </div>
 
 <script>
-let audioPlayed = false;
-let openedPhotos = new Set();
+let opened=0, audioPlayed=false;
+voice.onplay=()=>audioPlayed=true;
 
-const voice = document.getElementById("voice");
-const bgMusic = document.getElementById("bgMusic");
-
-/* FADE FUNCTIONS */
-function fadeIn(audio){
-    audio.volume = 0;
-    audio.play();
-    let v = 0;
-    let fade = setInterval(()=>{
-        if(v < 0.5){
-            v += 0.02;
-            audio.volume = v;
-        }else clearInterval(fade);
-    },100);
-}
-
-function fadeOut(audio){
-    let fade = setInterval(()=>{
-        if(audio.volume > 0.02){
-            audio.volume -= 0.02;
-        }else{
-            audio.pause();
-            clearInterval(fade);
-        }
-    },100);
-}
-
-/* MOBILE SAFE START */
-document.body.addEventListener("click",()=>{
-    if(bgMusic.paused){
-        fadeIn(bgMusic);
+function openGift(el,src){
+    img.src=src; m.style.display="flex";
+    if(!el.classList.contains("opened")){
+        el.classList.add("opened"); opened++;
     }
-},{once:true});
-
-/* AUDIO RULE */
-voice.onplay = ()=>{
-    audioPlayed = true;
-    fadeOut(bgMusic);
-};
-voice.onended = ()=>{
-    fadeIn(bgMusic);
-    checkUnlock();
-};
-
-function openPhoto(id,el){
-    modal.style.display="flex";
-    modalImg.src = `gift${id}.jpg`;
-    openedPhotos.add(id);
-    el.classList.add("done");
-    checkUnlock();
+    check();
 }
-
-function closeModal(){
-    modal.style.display="none";
-}
-
-function checkUnlock(){
-    if(audioPlayed && openedPhotos.size === 3){
-        nextBtn.classList.add("active");
-        msg.innerText = "✨ Everything unlocked ✨";
+function check(){
+    if(opened===3 && audioPlayed){
+        next.classList.add("active");
     }
 }
-
-function goNext(){
-    if(nextBtn.classList.contains("active")){
-        fadeOut(bgMusic);
-        setTimeout(()=>location.href="memories.html",800);
+function go(){
+    if(opened===3 && audioPlayed){
+        location.href="memories.html";
     }
 }
 </script>

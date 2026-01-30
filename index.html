@@ -31,32 +31,39 @@ button{
     border-radius:50px;
     font-size:18px;
     color:white;
-    background:linear-gradient(135deg,#ff4b8b,#ff77b7,#ff4b8b);
+    background:linear-gradient(135deg,#ff4b8b,#ff77b7);
+    box-shadow:0 0 30px rgba(255,75,139,0.6);
 }
 </style>
 </head>
 
 <body>
+
 <h2>Something special is coming 🎁</h2>
 <div id="timer">Loading...</div>
-<button id="go" onclick="location.href='welcome.html'">Enter ✨</button>
+<button id="go" onclick="next()">Enter ✨</button>
 
 <script>
 const target = new Date("February 19, 2026 00:00:00").getTime();
+
 setInterval(()=>{
     const now = new Date().getTime();
     const diff = target - now;
+
     if(diff <= 0){
-        timer.innerHTML = "It’s time 💖";
-        go.style.display = "inline-block";
+        timer.innerHTML="It’s time 💖";
+        go.style.display="inline-block";
         return;
     }
     const d=Math.floor(diff/(1000*60*60*24));
     const h=Math.floor((diff/(1000*60*60))%24);
     const m=Math.floor((diff/(1000*60))%60);
     const s=Math.floor((diff/1000)%60);
-    timer.innerHTML = `${d}d ${h}h ${m}m ${s}s`;
+    timer.innerHTML=`${d}d ${h}h ${m}m ${s}s`;
 },1000);
+
+function next(){ location.href="welcome.html"; }
 </script>
+
 </body>
 </html>

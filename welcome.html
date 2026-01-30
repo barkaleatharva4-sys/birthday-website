@@ -7,32 +7,42 @@
 
 <style>
 body{
-    margin:0;
-    height:100vh;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
+    margin:0;height:100vh;
+    display:flex;flex-direction:column;
+    justify-content:center;align-items:center;
     background:linear-gradient(135deg,#ff85b3,#ff5f9e);
     font-family:'Segoe UI',sans-serif;
-    color:white;
-    text-align:center;
+    color:white;text-align:center;
 }
 button{
     margin-top:30px;
-    padding:16px 50px;
-    border:none;
-    border-radius:50px;
-    font-size:18px;
-    background:#ff2f92;
-    color:white;
+    padding:16px 48px;
+    border:none;border-radius:50px;
+    font-size:18px;color:white;
+    background:linear-gradient(135deg,#ff4b8b,#ff77b7);
 }
 </style>
 </head>
 
 <body>
+
 <h1>Happy Birthday 💖</h1>
-<p>This journey is only for you ✨</p>
-<button onclick="location.href='cake.html'">Cut the Cake 🎂</button>
+<p>This journey is only for you</p>
+
+<audio id="bg" src="bg_music.mp3" loop></audio>
+
+<button onclick="next()">Cut the Cake 🎂</button>
+
+<script>
+bg.volume=0; bg.play();
+let v=0;
+let fade=setInterval(()=>{
+    if(v<0.6){ v+=0.05; bg.volume=v; }
+    else clearInterval(fade);
+},200);
+
+function next(){ location.href="cake.html"; }
+</script>
+
 </body>
 </html>

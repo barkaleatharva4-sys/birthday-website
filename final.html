@@ -7,40 +7,32 @@
 
 <style>
 body{
-    margin:0;
-    height:100vh;
+    margin:0;height:100vh;
     background:black;
-    overflow:hidden;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    font-family:'Segoe UI',sans-serif;
-    color:white;
-    text-align:center;
+    display:flex;flex-direction:column;
+    justify-content:center;align-items:center;
+    color:white;font-family:'Segoe UI',sans-serif;
 }
 .firework{
-    position:absolute;
-    width:6px;
-    height:6px;
+    position:absolute;width:6px;height:6px;
     border-radius:50%;
-    animation:explode 1.2s forwards;
+    animation:boom 1.2s ease-out forwards;
 }
-@keyframes explode{
-    to{transform:scale(14);opacity:0;}
+@keyframes boom{
+    to{transform:scale(12);opacity:0;}
 }
 </style>
 </head>
 
 <body>
-<h1>🎂 Happy Birthday Tanu 🎂</h1>
 
+<h1>🎂 Happy Birthday Tanu 🎂</h1>
 <p>May your life shine as bright as these fireworks ✨</p> 
 <p>You deserve all the happiness in the world 💖</p>
 
 <script>
 setInterval(()=>{
-    const f=document.createElement("div");
+    let f=document.createElement("div");
     f.className="firework";
     f.style.left=Math.random()*100+"vw";
     f.style.top=Math.random()*100+"vh";
@@ -49,5 +41,6 @@ setInterval(()=>{
     setTimeout(()=>f.remove(),1200);
 },300);
 </script>
+
 </body>
 </html>

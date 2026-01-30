@@ -7,42 +7,37 @@
 
 <style>
 body{
-    margin:0;
-    height:100vh;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
+    margin:0;height:100vh;
+    display:flex;flex-direction:column;
+    justify-content:center;align-items:center;
     background:linear-gradient(135deg,#ff5f9e,#ff85b3);
     font-family:'Segoe UI',sans-serif;
     color:white;
 }
-#cake{
-    font-size:120px;
-    cursor:pointer;
-}
+#cake{ font-size:120px; cursor:pointer; }
 button{
-    display:none;
-    margin-top:25px;
-    padding:15px 50px;
-    border:none;
-    border-radius:50px;
-    background:#ff2f92;
+    display:none;margin-top:30px;
+    padding:16px 48px;border:none;
+    border-radius:50px;font-size:18px;
+    background:linear-gradient(135deg,#ff4b8b,#ff77b7);
     color:white;
 }
 </style>
 </head>
 
 <body>
+
 <h2>Tap to cut the cake 🎂</h2>
 <div id="cake" onclick="cut()">🎂</div>
-<button id="next" onclick="location.href='gifts.html'">Open Gifts 🎁</button>
+<button id="next" onclick="go()">Open Gifts 🎁</button>
 
 <script>
 function cut(){
-    cake.innerHTML = "🍰 🍰";
-    next.style.display = "inline-block";
+    cake.innerHTML="🍰 🍰";
+    next.style.display="inline-block";
 }
+function go(){ location.href="gifts.html"; }
 </script>
+
 </body>
 </html>
